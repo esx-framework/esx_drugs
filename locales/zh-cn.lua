@@ -1,4 +1,4 @@
-Locales ['zh-cn'] = {
+Locales['zh-cn'] = {
   -- weed
   ['weed_pickupprompt'] = '键下 [E] 收获大麻原叶.',
   ['weed_quitprocess'] = '键下 [E] 暂时取消加工.',
