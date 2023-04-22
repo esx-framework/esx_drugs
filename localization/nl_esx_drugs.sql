@@ -4,5 +4,5 @@ INSERT INTO `items` (`name`, `label`, `weight`, `rare`, `can_remove`) VALUES
 ;
 
 INSERT INTO `licenses` (`type`, `label`) VALUES
-	('weed_processing', 'Wiet Processing Vergunning')
+	('weed_processing', 'Wiet Verwerkings vergunning')
 ;
