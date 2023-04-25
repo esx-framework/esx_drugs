@@ -9,6 +9,7 @@ Locales ['pl'] = {
   ['weed_processingenough'] = 'potrzebujesz 3x Konopii aby rozpocząć przerabianie.',
   ['weed_processed'] = 'przerobiłeś 3x Konopii na 1x Marihuane',
   ['weed_processingtoofar'] = 'przerabianie zostało ~r~przerwane ponieważ opuściłeś teren.',
+  ['weed_smoke'] = 'Paliłeś marihuanę!',
 
   -- drug dealer (dealer narkotyków)
   ['dealer_prompt'] = 'naciśnij [E] aby rozmawiać z ~r~Dealerem Narkotyków.',

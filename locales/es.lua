@@ -8,6 +8,7 @@ Locales ['es'] = {
   ['weed_processingenough'] = 'necesitas 3x Marijuana húmeda.',
   ['weed_processed'] = 'de 3x Marijuana húmeda has obtenido 1x Marijuana',
   ['weed_processingtoofar'] = 'el secado se ha ~r~cancelado por que has abandonado el área.',
+  ['weed_smoke'] = 'fumaste marihuana.',
 
   -- drug dealer
   ['dealer_prompt'] = 'pulsa [E] para hablar con el ~r~Camello.',

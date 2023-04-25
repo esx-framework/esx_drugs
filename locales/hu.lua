@@ -9,6 +9,7 @@ Locales ['hu'] = {
   ['weed_processingenough'] = 'Rendelkezned kell 3x Kannabisz a végrehajtáshoz',
   ['weed_processed'] = 'Feldolgoztad 3x Kannabisz to 1x Marihuana',
   ['weed_processingtoofar'] = 'A feldolgozás ~r~megszakadt elhagytad a területet.',
+  ['weed_smoke'] = 'Marihuánát használtál!',
 
   -- drug dealer
   ['dealer_prompt'] = 'Nyomd meg a [E] gombot a találkozáshoz a ~r~Dílerrel.',

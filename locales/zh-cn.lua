@@ -9,6 +9,7 @@ Locales['zh-cn'] = {
   ['weed_processingenough'] = '很抱歉! 您必须拥有至少三个大麻原叶才可进行加工.',
   ['weed_processed'] = '完成加工一个成品大麻(损耗：三个大麻原叶)',
   ['weed_processingtoofar'] = '由于您离开了当前加工区域,此次加工过程已被自动取消.',
+  ['weed_smoke'] = '你吸大麻!',
 
   -- drug dealer
   ['dealer_prompt'] = '键下 [E] 访问经销商.',

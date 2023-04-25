@@ -10,6 +10,7 @@ Locales ['sr'] = {
   ['weed_processingenough'] = 'Morate imati 3x Kanabisa da bi mogli da preradjujete.',
   ['weed_processed'] = 'Preradili ste 3x Kanabis u 1x Marihuanu',
   ['weed_processingtoofar'] = 'Prerada je ~r~otkazana jer ste napustili mesto prerade.',
+  ['weed_smoke'] = 'Pushil si marikhuana!',
 
   -- drug dealer
   ['dealer_prompt'] = 'Pritisni [E] da razgovaras sa ~r~Dilerom.',

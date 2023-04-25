@@ -1,7 +1,7 @@
 local menuOpen = false
 local inZoneDrugShop = false
 local inRangeMarkerDrugShop = false
-local cfgMarker = Config.Marker;
+local cfgMarker = Config.Marker
 
 --slow loop
 CreateThread(function()
@@ -11,11 +11,11 @@ CreateThread(function()
 		local distDrugShop = #(coords - Config.CircleZones.DrugDealer.coords)
 
 		inRangeMarkerDrugShop = false
-		if(distDrugShop <= Config.Marker.Distance) then
+		if (distDrugShop <= Config.Marker.Distance) then
 			inRangeMarkerDrugShop = true
 		end
 
-		if distDrugShop < 1 then
+		if (distDrugShop < 1) then
 			inZoneDrugShop = true
 		else
 			inZoneDrugShop = false
@@ -28,11 +28,11 @@ CreateThread(function()
 	end
 end)
 
---drawk marker
+--drawmarker
 CreateThread(function()
 	while true do 
 		local Sleep = 1500
-		if(inRangeMarkerDrugShop) then
+		if (inRangeMarkerDrugShop) then
 			Sleep = 0
 			local coordsMarker = Config.CircleZones.DrugDealer.coords
 			local color = cfgMarker.Color
@@ -134,9 +134,8 @@ function CreateBlipCircle(coords, text, radius, color, sprite)
 
 	SetBlipHighDetail(blip, true)
 	SetBlipColour(blip, 1)
-	SetBlipAlpha (blip, 128)
+	SetBlipAlpha(blip, 128)
 
-	-- create a blip in the middle
 	blip = AddBlipForCoord(coords)
 
 	SetBlipHighDetail(blip, true)
@@ -152,6 +151,8 @@ end
 
 CreateThread(function()
 	for k,zone in pairs(Config.CircleZones) do
-		CreateBlipCircle(zone.coords, zone.name, zone.radius, zone.color, zone.sprite)
+		if zone.showBlip then
+			CreateBlipCircle(zone.coords, zone.name, zone.radius, zone.color, zone.sprite)
+		end
 	end
 end)

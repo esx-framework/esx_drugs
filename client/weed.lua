@@ -47,12 +47,17 @@ end)
 
 function ProcessWeed(xCannabis)
 	isProcessing = true
-	ESX.ShowNotification(TranslateCap('weed_processingstarted'))
-  TriggerServerEvent('esx_drugs:processCannabis')
-	if(xCannabis <= 3) then
+
+	if (xCannabis <= 3) then
 		xCannabis = 0
+		ESX.ShowNotification(TranslateCap('weed_processingenough'))
+		return
 	end
-  local timeLeft = (Config.Delays.WeedProcessing * xCannabis) / 1000
+  	
+	TriggerServerEvent('esx_drugs:processCannabis')
+	ESX.ShowNotification(TranslateCap('weed_processingstarted'))
+
+    local timeLeft = (Config.Delays.WeedProcessing * xCannabis) / 1000
 	local playerPed = PlayerPedId()
 
 	while timeLeft > 0 do
@@ -116,14 +121,6 @@ CreateThread(function()
 			end
 		end
 	Wait(Sleep)
-	end
-end)
-
-AddEventHandler('onResourceStop', function(resource)
-	if resource == GetCurrentResourceName() then
-		for k, v in pairs(weedPlants) do
-			ESX.Game.DeleteObject(v)
-		end
 	end
 end)
 
@@ -201,3 +198,48 @@ function GetCoordZ(x, y)
 
 	return 43.0
 end
+
+function Recover()
+	Citizen.CreateThread(function()
+		local playerPed = GetPlayerPed(-1)
+  
+		ClearTimecycleModifier()
+		ResetScenarioTypesEnabled()
+		SetPedMotionBlur(playerPed, false)
+	end)
+end
+
+RegisterNetEvent("esx_drugs:smokepot")
+AddEventHandler("esx_drugs:smokepot", function()
+	if Config.DrugEffect then
+		local playerPed = GetPlayerPed(-1)
+		
+		RequestAnimSet("move_m@hipster@a") 
+		while not HasAnimSetLoaded("move_m@hipster@a") do
+			Citizen.Wait(0)
+		end    
+
+		TaskStartScenarioInPlace(playerPed, "WORLD_HUMAN_SMOKING_POT", 0, 1)
+		Citizen.Wait(3000)
+		ClearPedTasksImmediately(playerPed)
+		SetTimecycleModifier("spectator5")
+		SetPedMotionBlur(playerPed, true)
+		SetPedMovementClipset(playerPed, "move_m@hipster@a", true)
+
+		local player = PlayerId()
+		SetRunSprintMultiplierForPlayer(player, 1.3)
+
+		Wait(Config.DrugEffectMS)
+
+		SetRunSprintMultiplierForPlayer(player, 1.0)
+		Recover()
+	end
+end)
+
+AddEventHandler('onResourceStop', function(resource)
+	if resource == GetCurrentResourceName() then
+		for k, v in pairs(weedPlants) do
+			ESX.Game.DeleteObject(v)
+		end
+	end
+end)

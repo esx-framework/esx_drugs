@@ -1,10 +1,10 @@
 <h1 align='center'>[ESX] Drugs</a></h1><p align='center'><b><a href='https://discord.esx-framework.org/'>Discord</a> - <a href='https://documentation.esx-framework.org/legacy/installation'>Documentation</a></b></h5>
 
-Who loves some good old Marijuana? I hope you do! Cause this resource lets you grow, pick, proccess and roll your own to either use for personal use or do some shady deals to sell off your stock to earn **lots** of money!
+Who loves some good old Marijuana? I hope you do! Cause this resource lets you grow, pick, process and roll your own to either use for personal use or do some shady deals to sell off your stock to earn **lots** of money!
 
 # Legal
 
-esx_drugs - Drugs Job
+esx_drugs - Erugs
 
 Copyright (C) 2015-2023 Jérémie N'gadi
 

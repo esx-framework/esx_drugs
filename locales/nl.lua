@@ -9,6 +9,7 @@ Locales ['nl'] = {
   ['weed_processingenough'] = 'u moet 3 Cannabis planten hebben om te kunnen verwerken.',
   ['weed_processed'] = 'je hebt 3 Cannabis planten verwerkt tot 1x Marihuana',
   ['weed_processingtoofar'] = 'het proces is geannuleerd omdat u het gebied verlaten heeft.',
+  ['weed_smoke'] = 'Je hebt marihuana gerookt!',
 
   -- drug dealer
   ['dealer_prompt'] = 'druk op [E] om met de ~r~Drugs Dealer te praten.',
