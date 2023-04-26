@@ -4,7 +4,7 @@ Who loves some good old Marijuana? I hope you do! Cause this resource lets you g
 
 # Legal
 
-esx_drugs - Erugs
+esx_drugs - Drugs
 
 Copyright (C) 2015-2023 Jérémie N'gadi
 
