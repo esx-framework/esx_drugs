@@ -8,6 +8,7 @@ Locales ['fr'] = {
   ['weed_processingenough'] = 'vous devez avoir 3x Cannabis pour lancer une transformation.',
   ['weed_processed'] = 'vous avez transformé 3x Cannabis en 1x Marijuana',
   ['weed_processingtoofar'] = 'la transformation a été ~r~annulée. Vous êtes sorti de la zone.',
+  ['weed_smoke'] = 'tu as fumé de la marijuana.',
 
   -- drug dealer
   ['dealer_prompt'] = 'appuyez sur [E] pour parler avec le ~r~Dealer de drogue.',

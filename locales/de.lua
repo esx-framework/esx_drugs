@@ -9,6 +9,7 @@ Locales ['de'] = {
   ['weed_processingenough'] = 'Du musst 3x Cannabis besitzen um zu Produzieren.',
   ['weed_processed'] = 'Du produzierst 3x Cannabis zu 1x Marijuana',
   ['weed_processingtoofar'] = 'Der prozess wurde ~r~abgebrochen da du den Bereich verlassen hast!',
+  ['weed_smoke'] = 'Du hast Marihuana geraucht!',
 
   -- drug dealer
   ['dealer_prompt'] = 'Drücke [E] um mit dem ~r~Drogen Dealer~r~ zu reden!',
