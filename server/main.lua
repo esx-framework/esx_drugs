@@ -16,8 +16,8 @@ local function ValidateProcessCannabis(src)
 	if Dist <= 90 then return true end
 end
 
-local function BanPlayer(src,reason)
-	-- Add Event Here --
+local function FoundExploiter(src,reason)
+	-- ADD YOUR BAN EVENT HERE UNTIL THEN IT WILL ONLY KICK THE PLAYER --
 	DropPlayer(src,reason)
 end
 
@@ -34,6 +34,7 @@ AddEventHandler('esx_drugs:sellDrug', function(itemName, amount)
 
 	if amount < 0 then
 		print(('esx_drugs: %s attempted to sell an minus amount!'):format(xPlayer.identifier))
+		return
 	end
 
 	if xItem.count < amount then
@@ -85,7 +86,7 @@ AddEventHandler('esx_drugs:pickedUpCannabis', function()
 			xPlayer.showNotification(TranslateCap('weed_inventoryfull'))
 		end
 	else
-		BanPlayer(src,'Event Trigger')
+		FoundExploiter(src,'Event Trigger')
 	end
 end)
 
@@ -109,7 +110,7 @@ RegisterServerEvent('esx_drugs:processCannabis')
 AddEventHandler('esx_drugs:processCannabis', function()
   	if not playersProcessingCannabis[source] then
 		local source = source
-		if ValidateProcessCannabis(src) then
+		if ValidateProcessCannabis(source) then
 			local xPlayer = ESX.GetPlayerFromId(source)
 			local xCannabis = xPlayer.getInventoryItem('cannabis')
 			local can = true
@@ -144,7 +145,7 @@ AddEventHandler('esx_drugs:processCannabis', function()
 				TriggerEvent('esx_drugs:cancelProcessing')
 			end	
 		else
-			BanPlayer(source,'Event Trigger')
+			FoundExploiter(source,'Event Trigger')
 		end
 	else
 		print(('esx_drugs: %s attempted to exploit weed processing!'):format(GetPlayerIdentifiers(source)[1]))
