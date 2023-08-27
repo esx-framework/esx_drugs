@@ -23,15 +23,14 @@ end
 
 RegisterServerEvent('esx_drugs:sellDrug')
 AddEventHandler('esx_drugs:sellDrug', function(itemName, amount)
-	local src = source
-	local xPlayer = ESX.GetPlayerFromId(src)
+	local xPlayer = ESX.GetPlayerFromId(source)
 	local price = Config.DrugDealerItems[itemName]
 	local xItem = xPlayer.getInventoryItem(itemName)
 
 	-- If this fails its 99% a mod-menu, the variables client sided are setup to provide the exact right arguments
 	if type(amount) ~= 'number' or type(itemName) ~= 'string' then
 		print(('esx_drugs: %s attempted to sell with invalid input type!'):format(xPlayer.identifier))
-		FoundExploiter(src,'SellDrugs Event Trigger')
+		FoundExploiter(xPlayer.source,'SellDrugs Event Trigger')
 		return
 	end
 	if not price then
