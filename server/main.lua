@@ -2,6 +2,25 @@ local playersProcessingCannabis = {}
 local outofbound = true
 local alive = true
 
+local function ValidatePickupCannabis(src)
+	local ECoords = Config.CircleZones.WeedField.coords
+	local PCoords = GetEntityCoords(GetPlayerPed(src))
+	local Dist = #(PCoords-ECoords)
+	if Dist <= 90 then return true end
+end
+
+local function ValidateProcessCannabis(src)
+	local ECoords = Config.CircleZones.WeedProcessing.coords
+	local PCoords = GetEntityCoords(GetPlayerPed(src))
+	local Dist = #(PCoords-ECoords)
+	if Dist <= 90 then return true end
+end
+
+local function FoundExploiter(src,reason)
+	-- ADD YOUR BAN EVENT HERE UNTIL THEN IT WILL ONLY KICK THE PLAYER --
+	DropPlayer(src,reason)
+end
+
 RegisterServerEvent('esx_drugs:sellDrug')
 AddEventHandler('esx_drugs:sellDrug', function(itemName, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
@@ -10,6 +29,11 @@ AddEventHandler('esx_drugs:sellDrug', function(itemName, amount)
 
 	if not price then
 		print(('esx_drugs: %s attempted to sell an invalid drug!'):format(xPlayer.identifier))
+		return
+	end
+
+	if amount < 0 then
+		print(('esx_drugs: %s attempted to sell an minus amount!'):format(xPlayer.identifier))
 		return
 	end
 
@@ -52,13 +76,17 @@ end)
 
 RegisterServerEvent('esx_drugs:pickedUpCannabis')
 AddEventHandler('esx_drugs:pickedUpCannabis', function()
-	local xPlayer = ESX.GetPlayerFromId(source)
+	local src = source
+	local xPlayer = ESX.GetPlayerFromId(src)
 	local cime = math.random(5,10)
-
-	if xPlayer.canCarryItem('cannabis', cime) then
-		xPlayer.addInventoryItem('cannabis', cime)
+	if ValidatePickupCannabis(src) then
+		if xPlayer.canCarryItem('cannabis', cime) then
+			xPlayer.addInventoryItem('cannabis', cime)
+		else
+			xPlayer.showNotification(TranslateCap('weed_inventoryfull'))
+		end
 	else
-		xPlayer.showNotification(TranslateCap('weed_inventoryfull'))
+		FoundExploiter(src,'Event Trigger')
 	end
 end)
 
@@ -80,43 +108,45 @@ end)
 
 RegisterServerEvent('esx_drugs:processCannabis')
 AddEventHandler('esx_drugs:processCannabis', function()
-  if not playersProcessingCannabis[source] then
+  	if not playersProcessingCannabis[source] then
 		local source = source
-		local xPlayer = ESX.GetPlayerFromId(source)
-		local xCannabis = xPlayer.getInventoryItem('cannabis')
-		local can = true
-		outofbound = false
-    if xCannabis.count >= 3 then
-      while outofbound == false and can do
-				if playersProcessingCannabis[source] == nil then
-					playersProcessingCannabis[source] = ESX.SetTimeout(Config.Delays.WeedProcessing , function()
-            if xCannabis.count >= 3 then
-              if xPlayer.canSwapItem('cannabis', 3, 'marijuana', 1) then
-                xPlayer.removeInventoryItem('cannabis', 3)
-                xPlayer.addInventoryItem('marijuana', 1)
-								xPlayer.showNotification(TranslateCap('weed_processed'))
-							else
+		if ValidateProcessCannabis(source) then
+			local xPlayer = ESX.GetPlayerFromId(source)
+			local xCannabis = xPlayer.getInventoryItem('cannabis')
+			local can = true
+			outofbound = false
+			if xCannabis.count >= 3 then
+				while outofbound == false and can do
+					if playersProcessingCannabis[source] == nil then
+						playersProcessingCannabis[source] = ESX.SetTimeout(Config.Delays.WeedProcessing , function()
+							if xCannabis.count >= 3 then
+								if xPlayer.canSwapItem('cannabis', 3, 'marijuana', 1) then
+									xPlayer.removeInventoryItem('cannabis', 3)
+									xPlayer.addInventoryItem('marijuana', 1)
+									xPlayer.showNotification(TranslateCap('weed_processed'))
+								else
+									can = false
+									xPlayer.showNotification(TranslateCap('weed_processingfull'))
+									TriggerEvent('esx_drugs:cancelProcessing')
+								end
+							else						
 								can = false
-								xPlayer.showNotification(TranslateCap('weed_processingfull'))
+								xPlayer.showNotification(TranslateCap('weed_processingenough'))
 								TriggerEvent('esx_drugs:cancelProcessing')
 							end
-						else						
-							can = false
-							xPlayer.showNotification(TranslateCap('weed_processingenough'))
-							TriggerEvent('esx_drugs:cancelProcessing')
-						end
-
-						playersProcessingCannabis[source] = nil
-					end)
-				else
-					Wait(Config.Delays.WeedProcessing)
-				end	
-			end
+							playersProcessingCannabis[source] = nil
+						end)
+					else
+						Wait(Config.Delays.WeedProcessing)
+					end	
+				end
+			else
+				xPlayer.showNotification(TranslateCap('weed_processingenough'))
+				TriggerEvent('esx_drugs:cancelProcessing')
+			end	
 		else
-			xPlayer.showNotification(TranslateCap('weed_processingenough'))
-			TriggerEvent('esx_drugs:cancelProcessing')
-		end	
-			
+			FoundExploiter(source,'Event Trigger')
+		end
 	else
 		print(('esx_drugs: %s attempted to exploit weed processing!'):format(GetPlayerIdentifiers(source)[1]))
 	end
