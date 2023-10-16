@@ -13,7 +13,7 @@ local function ValidateProcessCannabis(src)
 	local ECoords = Config.CircleZones.WeedProcessing.coords
 	local PCoords = GetEntityCoords(GetPlayerPed(src))
 	local Dist = #(PCoords-ECoords)
-	if Dist <= 90 then return true end
+	if Dist <= 5 then return true end
 end
 
 local function FoundExploiter(src,reason)
@@ -27,17 +27,21 @@ AddEventHandler('esx_drugs:sellDrug', function(itemName, amount)
 	local price = Config.DrugDealerItems[itemName]
 	local xItem = xPlayer.getInventoryItem(itemName)
 
+	-- If this fails its 99% a mod-menu, the variables client sided are setup to provide the exact right arguments
+	if type(amount) ~= 'number' or type(itemName) ~= 'string' then
+		print(('esx_drugs: %s attempted to sell with invalid input type!'):format(xPlayer.identifier))
+		FoundExploiter(xPlayer.source,'SellDrugs Event Trigger')
+		return
+	end
 	if not price then
 		print(('esx_drugs: %s attempted to sell an invalid drug!'):format(xPlayer.identifier))
 		return
 	end
-
 	if amount < 0 then
 		print(('esx_drugs: %s attempted to sell an minus amount!'):format(xPlayer.identifier))
 		return
 	end
-
-	if xItem.count < amount then
+	if xItem == nil or xItem.count < amount then
 		xPlayer.showNotification(TranslateCap('dealer_notenough'))
 		return
 	end

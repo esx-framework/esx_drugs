@@ -87,9 +87,8 @@ function OpenDrugShop()
 		}
 
 		ESX.OpenContext("right", elements2, function(menu2,element2)
-			local amount = menu2.eles[2].inputValue
 			ESX.CloseContext()
-			TriggerServerEvent('esx_drugs:sellDrug', element.name, amount)
+			TriggerServerEvent('esx_drugs:sellDrug',tostring(element.name),tonumber(menu2.eles[2].inputValue))
 		end, function(menu)
 			menuOpen = false
 		end)
