@@ -1,5 +1,6 @@
 Locales ['en'] = {
   -- weed
+  ['invalid_input'] = 'Invalid input',
   ['weed_pickupprompt'] = 'press [E] to harvest the Cannabis plant.',
   ['weed_quitprocess'] = 'press [E] to stop Process Cannabis.',
   ['weed_inventoryfull'] = 'you do not have any more inventory space for Cannabis.',
