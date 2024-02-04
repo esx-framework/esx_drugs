@@ -88,7 +88,11 @@ function OpenDrugShop()
 
 		ESX.OpenContext("right", elements2, function(menu2,element2)
 			ESX.CloseContext()
-			TriggerServerEvent('esx_drugs:sellDrug',tostring(element.name),tonumber(menu2.eles[2].inputValue))
+		local count = tonumber(menu2.eles[2].inputValue)
+
+if not count then 
+   return ESX.ShowNotification(TranslateCap("invalid_input"), "error")
+end 	TriggerServerEvent('esx_drugs:sellDrug',tostring(element.name),count)
 		end, function(menu)
 			menuOpen = false
 		end)
