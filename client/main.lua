@@ -82,17 +82,19 @@ function OpenDrugShop()
 	ESX.OpenContext("right", elements, function(menu,element)
 		local elements2 = {
 			{unselectable = true, icon = "fas fa-shopping-basket", title = element.title},
-			{icon = "fas fa-shopping-basket", title = "Amount", input = true, inputType = "number", inputPlaceholder = "Amount you want to sell", inputMin = Config.SellMenu.Min, inputMax = Config.SellMenu.Max},
+			{icon = "fas fa-shopping-basket", title = "Amount", input = true, inputType = "number", inputPlaceholder = "Amount you want to sell", inputValue=0, inputMin = Config.SellMenu.Min, inputMax = Config.SellMenu.Max},
 			{icon = "fas fa-check-double", title = "Confirm", val = "confirm"}
 		}
 
 		ESX.OpenContext("right", elements2, function(menu2,element2)
 			ESX.CloseContext()
-		local count = tonumber(menu2.eles[2].inputValue)
+			local count = tonumber(menu2.eles[2].inputValue) 
 
-if not count then 
-   return ESX.ShowNotification(TranslateCap("invalid_input"), "error")
-end 	TriggerServerEvent('esx_drugs:sellDrug',tostring(element.name),count)
+			if count < 1 then 
+				return 
+			end 
+			
+			TriggerServerEvent('esx_drugs:sellDrug',tostring(element.name), count)
 		end, function(menu)
 			menuOpen = false
 		end)
